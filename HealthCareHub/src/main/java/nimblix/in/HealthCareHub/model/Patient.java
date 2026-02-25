@@ -22,15 +22,19 @@ public class Patient {
     private String phone;
     private String disease;
 
-    @OneToOne
+    private boolean deleted = false; // soft delete flag
+
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 
+    @Column(name ="created_time")
     private String createdTime;
+    @Column(name ="updated_time")
     private String updatedTime;
 
     @PrePersist
@@ -41,6 +45,7 @@ public class Patient {
 
     @PreUpdate
     protected void onUpdate(){
+
         updatedTime = HealthCareUtil.changeCurrentTimeToLocalDateFromGmtToISTInString();
     }
 }
