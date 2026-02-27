@@ -22,6 +22,8 @@ public class Patient {
     private String phone;
     private String disease;
 
+    private Boolean isDeleted = false;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
